@@ -58,7 +58,7 @@ export const getUser = async (req, res) => {
 
 export const getAllUsers = async (req, res) => {
   try {
-    // Find all users and exclude passwords from the response
+    
     const users = await User.find().select("-password");
 
     if (users.length === 0) {
