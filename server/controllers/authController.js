@@ -58,7 +58,7 @@ export const getUser = async (req, res) => {
 
 export const getAllUsers = async (req, res) => {
   try {
-    // Find all users and exclude passwords from the response
+    
     const users = await User.find().select("-password");
 
     if (users.length === 0) {
@@ -73,3 +73,24 @@ export const getAllUsers = async (req, res) => {
 
 
 
+export const updateUser = async (req, res) => {
+  try {
+    const userId = req.params.id;
+    const updates = req.body; // Data to update
+
+    // Find and update the user
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      { $set: updates }, // Set new values
+      { new: true, runValidators: true } // Return updated user & validate input
+    ).select("-password"); // Exclude password from response
+
+    if (!updatedUser) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.status(200).json(updatedUser);
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+};
