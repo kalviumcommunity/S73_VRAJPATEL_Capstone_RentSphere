@@ -1,12 +1,12 @@
 import express from "express";
-import { signup,getUser,getAllUsers,updateUser } from "../controllers/authController.js";
+import { signup, login, getUser, updateUser } from "../controllers/authController.js";
+import { verifyToken } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
 router.post("/signup", signup);
-router.get("/user/:id", getUser);
-router.get("/users", getAllUsers); 
-router.put("/user/:id",updateUser);
-
+router.post("/login", login);
+router.get("/user", verifyToken, getUser); // Protected route
+router.put("/user", verifyToken, updateUser); // Protected update route
 
 export default router;
