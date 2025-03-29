@@ -5,7 +5,15 @@ meta {
 }
 
 put {
-  url: http://localhost:5000/api/auth/editProfile/
-  body: none
+  url: http://localhost:5000/api/auth/user/67df12849ab626ed94aff388
+  body: json
   auth: none
+}
+
+body:json {
+  {
+    "name":"Kalvium student 123",
+    "email":"Kal456@gmail.com",
+    "password":"kal678"
+  }
 }
